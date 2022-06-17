@@ -60,7 +60,13 @@ function App() {
           {cocktailIngredients.map((item) => {
             return <IngredientsLI text={item}></IngredientsLI>;
           })}
+          {cocktailMeasures.map((item) => {
+            return <IngredientsLI text={item}></IngredientsLI>;
+          })}
+        
         </IngredientsUL>
+     
+
         <h2>Recipe</h2>
         <p>{cocktailInstructions}</p>
       </div>
@@ -69,3 +75,9 @@ function App() {
 }
 
 export default App;
+
+/* { for (let i=0; i<cocktailIngredients.length; i++){
+          <IngredientsLI measure={cocktailMeasures[i] text={cocktailIngredients[i]} }></IngredientsLI>;
+        }}
+
+        */
