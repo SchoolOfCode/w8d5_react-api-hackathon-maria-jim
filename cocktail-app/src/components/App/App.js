@@ -9,9 +9,8 @@ import ButtonNewRecipe from "../Button";
 function App() {
   const [pictureURL, setPictureURL] = useState("");
   const [cocktailName, setCocktailName] = useState("");
-  const [cocktailIngredients, setCocktailIngredients] = useState([]);
   const [cocktailInstructions, setCocktailInstructions] = useState("");
-  const [cocktailMeasures, setCocktailMeasures] = useState([]);
+  const [cocktailMeasureAndIngredients, setCocktailMeasureAndIngredients] = useState([]);
 
   async function getRandomRecipe() {
     let response = await fetch(
@@ -37,16 +36,30 @@ function App() {
         arrMeasures.push(measure);
       }
     }
-    setCocktailIngredients(arrIngredients);
-    setCocktailMeasures(arrMeasures);
+
+    let arrMeasuresAndIngridients= [];
+      
+      for(let i=0; i<arrIngredients.length; i++){
+        if (arrMeasures[i]){
+          arrMeasuresAndIngridients.push({ingredient:` ${arrMeasures[i]} ${arrIngredients[i]}`, key: i})
+        }
+        if (arrMeasures[i] === null){
+          arrMeasuresAndIngridients.push({ingredient:`${arrIngredients[i]}`, key: i})
+        }
+        
+      }
+      console.log(arrMeasuresAndIngridients);
+      setCocktailMeasureAndIngredients(arrMeasuresAndIngridients);
+    
+    
 
     //console.log(data);
     console.log("our Ingreds", arrIngredients);
     console.log("our Measures", arrMeasures);
   }
 
-  console.log(cocktailIngredients);
-  console.log(cocktailInstructions);
+  //console.log(cocktailIngredients);
+  //console.log(cocktailInstructions);
 
   useEffect(() => {
     getRandomRecipe();
@@ -65,6 +78,11 @@ function App() {
   
       let arrIngredients = [];
       let arrMeasures = [];
+      
+      //Create an array of objects 
+      //  each object will have {index:{index} measure: {measure} ingredient: {ingredient}}
+      // for loop with if statement
+      // if statement -> if index is the same push add to object 
   
       setPictureURL(data.drinks[0].strDrinkThumb);
       setCocktailName(data.drinks[0].strDrink);
@@ -75,17 +93,30 @@ function App() {
         const key2 = "strMeasure" + i;
         const ingredient = data.drinks[0][key1];
         const measure = data.drinks[0][key2];
-        if (ingredient !== null) {
+        if (ingredient !== null && ingredient !== "") {
           arrIngredients.push(ingredient);
           arrMeasures.push(measure);
         }
       }
-      setCocktailIngredients(arrIngredients);
-      setCocktailMeasures(arrMeasures);
+      
+      let arrMeasuresAndIngridients= [];
+      
+      for(let i=0; i<arrIngredients.length; i++){
+        if (arrMeasures[i]){
+          arrMeasuresAndIngridients.push({ingredient:` ${arrMeasures[i]} ${arrIngredients[i]}`, key: i})
+        }
+        if (arrMeasures[i] === null){
+          arrMeasuresAndIngridients.push({ingredient:`${arrIngredients[i]}`, key: i})
+        }
+        
+      }
+      console.log(arrMeasuresAndIngridients);
+      setCocktailMeasureAndIngredients(arrMeasuresAndIngridients);
   
       //console.log(data);
       console.log("our Ingreds", arrIngredients);
       console.log("our Measures", arrMeasures);
+      console.log("our measures and ingridients", arrMeasuresAndIngridients);
     }
     getNewRandomRecipe();
   }
@@ -97,19 +128,14 @@ function App() {
       <div id="recipe-div">
         <Cocktail text={cocktailName} />
         <CocktailImage src={pictureURL} text={cocktailName} />
-        <IngredientsUL>
-          {cocktailIngredients.map((item) => {
-            return <IngredientsLI text={item}></IngredientsLI>;
+        <div id="ingridients"><IngredientsUL>
+          {cocktailMeasureAndIngredients.map((item) => {
+            return <IngredientsLI text={item.ingredient}></IngredientsLI>;
           })}
-          {cocktailMeasures.map((item) => {
-            return <IngredientsLI text={item}></IngredientsLI>;
-          })}
-        
         </IngredientsUL>
-     
-
+        </div>
         <h2>Recipe</h2>
-        <p>{cocktailInstructions}</p>
+        <p className="instructions">{cocktailInstructions}</p>
       </div>
     </div>
   );
