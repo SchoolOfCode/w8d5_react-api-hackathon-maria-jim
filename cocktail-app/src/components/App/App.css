@@ -34,7 +34,7 @@
 h1 {
   font-family: "Dancing Script";
   font-size: 3rem;
-  margin-bottom: 5px;
+  margin-bottom: 1px;
   margin-top: 20px;
   color: #694F5D;
   
@@ -54,14 +54,14 @@ h2 {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   background-color: #694F5D;
   border-radius: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
   padding: 1rem;
   flex-grow: 3;
   box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 button {
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 2rem;
   padding: .8rem;
   background-color: #EFC7C2;
@@ -86,3 +86,4 @@ li{
 .instructions{
   color: white;
 }
+

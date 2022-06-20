@@ -6,6 +6,9 @@ import IngredientsUL from "../IngredientsUL";
 import IngredientsLI from "../IngredientsLI";
 import ButtonNewRecipe from "../Button";
 
+// API website https://www.thecocktaildb.com/api.php?ref=apilist.fun
+
+
 function App() {
   const [pictureURL, setPictureURL] = useState("");
   const [cocktailName, setCocktailName] = useState("");
@@ -58,15 +61,12 @@ function App() {
     console.log("our Measures", arrMeasures);
   }
 
-  //console.log(cocktailIngredients);
-  //console.log(cocktailInstructions);
-
   useEffect(() => {
     getRandomRecipe();
   }, []);
 
   const buttonName = "Get new recipe!";
-
+ 
   function handleClick(){
     console.log("handleclick working")
     async function getNewRandomRecipe() {
@@ -126,8 +126,8 @@ function App() {
       <h1>Cocktail Inspirations</h1>
       <div><ButtonNewRecipe text={buttonName} onClick ={handleClick}/></div>
       <div id="recipe-div">
-        <Cocktail text={cocktailName} />
-        <CocktailImage src={pictureURL} text={cocktailName} />
+        <Cocktail cocktailname={cocktailName} />
+        <CocktailImage src={pictureURL} cocktailname={cocktailName} />
         <div id="ingridients"><IngredientsUL>
           {cocktailMeasureAndIngredients.map((item) => {
             return <IngredientsLI text={item.ingredient}></IngredientsLI>;
@@ -137,6 +137,7 @@ function App() {
         <h2>Recipe</h2>
         <p className="instructions">{cocktailInstructions}</p>
       </div>
+     
     </div>
   );
 }
